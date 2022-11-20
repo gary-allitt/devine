@@ -22,7 +22,7 @@ Limitations.
 
 Licencing. 
 
-  The source code is supplied without a specific Licence.
+  The source code is supplied without a specific Licence. Do what you want at your own risk! 
 
   A prebuilt version is supplied under the terms of the GNU LGPL as this utilises Qt which has the same Licence.
 
