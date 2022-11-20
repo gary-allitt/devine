@@ -2,7 +2,7 @@
 
 Devine is an alternative to the Windows device manager that retains the look and feel of the original but has several addition features. 
 
-Additional Features. 
+**Additional Features.** 
 
   Additional information in the tree view. When working with multiple device instances where the default tool provides a single name, 
   specific instances can more easily be identified.
@@ -15,18 +15,19 @@ Additional Features.
   before being removed from the view. 
 
 
-Limitations. 
+**Limitations.** 
 
   Some of the views supported by the Windows tool are not supported.
   Devine only shows information from the local computer.
 
-Licencing. 
+**Licencing.** 
 
-  The source code is supplied without a specific Licence. Do what you want at your own risk! 
+  The source code is supplied as freeware. Do what you want at your own risk for your own use, either for personal use or within your own company
+  but not for resale. 
 
   A prebuilt version is supplied under the terms of the GNU LGPL as this utilises Qt which has the same Licence.
 
-Building. 
+**Building.** 
 
   You will need Qt 6. We use Qt's qmake tool to create a Visual Studio project which is then compiled with Visual Studio. 
 
@@ -38,14 +39,14 @@ Building.
   It should also be possible to open devine.pro with Qt Creator and build directly from there but we haven't tried that. 
 
 
-Prebuilt package. 
+**Prebuilt package.** 
 
   The ./package folder holds a prebuilt package devine.zip. 
   Simply extract all files from this and execute devine.exe. 
 
   If you don't already have Visual Studio runtime libraries installed on your computer run the contained vc_redist.x64.exe to install these. 
 
-UAC requirements. 
+**UAC requirements.** 
 
   To use the update features of devine you will need to run devine.exe as an administrator. 
   In the pre-built version the manifest is set to enforce this, but we have seen inconsistent behaviour on Windows 11. 

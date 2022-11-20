@@ -2,6 +2,8 @@
 #include <QObject>
 #include "nativeevents.h"
 
+// Qt stuff to handle WM_DEVICECHANGE
+
 NativeEvents::NativeEvents()
 {
 }

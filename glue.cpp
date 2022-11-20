@@ -4,6 +4,10 @@
 #include <QPainter>
 #include "glue.h"
 
+// helper methods to access Windows stuff and where appropraiate 
+// present Qt centric data, eg QString / QPixmap
+// the glue that connects Qt to various Windows API's
+
 Glue::Glue()
 {
   the_shell32_dll = LoadLibraryA("shell32.dll");
@@ -53,6 +57,7 @@ HMODULE Glue::MyGetModuleHandle(const QString& a_path)
   return(hm);
 }
 
+// convert an image to a grayed / disabled version
 void Glue::GrayImage(QImage& image)
 {
   image = image.convertToFormat(QImage::Format_ARGB32);
@@ -69,6 +74,7 @@ void Glue::GrayImage(QImage& image)
   }
 }
 
+// take an overlay an draw in over another image to provide a disabled / problem version of a standard Windows icon
 QPixmap Glue::OverlayPixmap(const QPixmap& base, const QPixmap& overlay)
 {
   QPixmap result(base.width(), base.height());
@@ -93,6 +99,7 @@ QPixmap Glue::ProblemPixmap(const QPixmap& pixmap)
   return(OverlayPixmap(pixmap, px_problem));
 }
 
+// Get a standard Windows icon from (in this use case) a dll such as setupapi.dll 
 QPixmap Glue::IconFromResource(const QString& a_resource_file, int a_index, bool connected, bool disabled, bool problem)
 {
   QString key = QString("%1:%2:%3:%4:%5").arg(a_resource_file).arg(a_index).arg(connected).arg(disabled).arg(problem);
@@ -121,6 +128,7 @@ QPixmap Glue::IconFromResource(const QString& a_resource_file, int a_index, bool
   return(px);
 }
 
+// given the icon path for a device work out where to load the Windows icon from, and modify it for various states
 QPixmap Glue::IconFromPath(const QString& a_path, bool connected, bool disabled, bool problem)
 {
   QString key = QString("%1:%2:%3:%4").arg(a_path).arg(connected).arg(disabled).arg(problem);

@@ -2,6 +2,8 @@
 #include "columns.h"
 #include "ui_columns.h"
 
+// the column selection dialog
+
 Columns::Columns(QWidget *parent) :
     QDialog(parent),
   the_settings("oxenic", "devine"),

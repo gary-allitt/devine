@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget* parent)
   {
     ui->actionDevices_by_connection->setChecked(true);
   }
-  the_redraw_timer.setInterval(3000);
+  the_redraw_timer.setInterval(3000); // added / deleted entries show green / red for 3 seconds 
   the_redraw_timer.setSingleShot(true);
   the_filter_debounce_timer.setInterval(750);
   the_filter_debounce_timer.setSingleShot(true);
@@ -177,7 +177,8 @@ void MainWindow::OnSelectColumns()
 }
 
 void MainWindow::OnFilter()
-{
+{ 
+  // the text in the filter field changed
   QString filter = ui->the_filter->text().trimmed().toLower();
 
   if (filter.length()) // todo, on transition to filtering
@@ -231,7 +232,7 @@ void MainWindow::OnFilter()
     QTreeWidgetItemIterator it(ui->the_tree);
     while (*it)
     {
-      if (the_filter_was.length() /*&& ui->actionDevices_by_connection->isChecked()*/)
+      if (the_filter_was.length())
       {
         if ((*it)->isExpanded())
         {
@@ -269,6 +270,10 @@ void MainWindow::OnItemExpanded(QTreeWidgetItem* parent)
 
 void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
 {
+  // set up a QTreeWidgetItem and where appropriate it's descendants
+  // note that this implements a simple model to reflect changes without a full reload 
+  // on every change as in the default device manager 
+  // this gives reasonable performance whilst avoiding the complexity of full blown model / view implementation
   map<QString, QTreeWidgetItem*> devices_were;
   set<QString> devices_now;
 
@@ -297,7 +302,7 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
         item->setData(0, ROLE_CLASS_GUID, it->class_guid_readable);
         item->setData(0, ROLE_IS_DEVICE, true); // as opposed to a class in type view 
         if (sender() == the_native_events)
-        { // newly added 
+        { // newly added, show green for 5 seconds  
           the_redraw_timer.start();
           for (int c = 0; c < ui->the_tree->columnCount(); c++)
           {
@@ -327,9 +332,9 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
       }
       if (ui->actionDevices_by_connection->isChecked())
       {
-
+        // implements on demand loading of children 
         if (it->has_children)
-        {
+        { 
           item->setChildIndicatorPolicy(QTreeWidgetItem::ShowIndicator);
         }
         else
@@ -345,8 +350,8 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
           item->setText(c, it->instance_id_display);
         }
         if (e == "first_hardware_id")
-        {
-          item->setText(c, it->first_hardware_id);
+        { // hardware id is a multi sz, we show the first in the tree, the full list can be seen in properties. 
+          item->setText(c, it->first_hardware_id); 
         }
         if (e == "manufacturer")
         {
@@ -381,7 +386,8 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
   for (auto d : deletes)
   {
     if (sender() == the_native_events)
-    {
+    { 
+      // removed device, show in red for 3 seconds after wm_device change
       the_redraw_timer.start();
       for (int c = 0; c < ui->the_tree->columnCount(); c++)
       {
@@ -391,6 +397,7 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
         d->setFont(c, f);
       }
     }
+    // subsequent update will have sender() as below, remove the entry
     if (sender() == &the_redraw_timer
       || sender() == ui->actionShow_hidden_devices)
     {
@@ -413,7 +420,7 @@ void MainWindow::LoadByTypeView()
     QTreeWidgetItem* item = root_item->child(i);
     classes_were[item->text(0)] = item;
   }
-
+  // get the list of device classes recorded in the previous enumeration 
   for(auto it = the_used_device_class_guids.begin(); it != the_used_device_class_guids.end(); it++)
   {
     QString _class;
@@ -447,6 +454,7 @@ void MainWindow::LoadByTypeView()
     }
   }
 
+  // populate any expanded level 1 items (device classes) 
   vector<QTreeWidgetItem*> deletes;
   for (int i = 0; i < root_item->childCount(); i++)
   {
@@ -476,7 +484,7 @@ void MainWindow::LoadByTypeView()
 }
 
 void MainWindow::LoadByConnectionView()
-{
+{ //hierarchical view of devices 
   ui->the_tree->setSortingEnabled(false);
   QString root;
   for (auto it = the_devices.begin(); it != the_devices.end(); it++)
@@ -498,7 +506,9 @@ void MainWindow::LoadByConnectionView()
 
 
 void MainWindow::EnumDevices()
-{
+{ 
+  // on each update we build a complete list of device instances, this is relatively quick
+  // loading into the treewidget is done on demand as this is a little slower 
   the_devices.clear();
  
   set<QString> parents;
@@ -636,7 +646,8 @@ void MainWindow::OnRightClick(const QPoint& pos)
 }
 
 void MainWindow::OnDisable()
-{
+{ 
+  // disable the selected device(s). Unlike the Windows device manager multiple selections is allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
   while (*it)
@@ -652,6 +663,7 @@ void MainWindow::OnDisable()
 
 void MainWindow::OnEnable()
 {
+  // enable the selected device(s). Unlike the Windows device manager multiple selections is allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
   while (*it)
@@ -667,6 +679,7 @@ void MainWindow::OnEnable()
 
 void MainWindow::OnUninstall()
 {
+  // delete the selected device(s). Unlike the Windows device manager multiple selections is allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   while (*it)
   {
@@ -686,6 +699,7 @@ void MainWindow::OnUninstall()
 
 void MainWindow::OnProperties()
 {
+  // launch the standard Windows device property dialog
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   if (*it)
   {

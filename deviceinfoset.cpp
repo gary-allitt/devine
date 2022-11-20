@@ -2,6 +2,9 @@
 #include <devpkey.h>
 #include "deviceinfoset.h"
 
+// OO wrapper for Windows SetupDiXXX stuff
+// makes the client code more readable 
+
 DeviceInfoSet::DeviceInfoSet(const GUID* a_guid, DWORD a_flags)
 {
   the_info_set = SetupDiGetClassDevsA(a_guid, 0, 0, a_flags);
