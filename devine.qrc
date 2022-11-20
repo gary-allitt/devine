@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="">
+        <file>images/filter.png</file>
+        <file>images/disabled.png</file>
+        <file>images/error.png</file>
+    </qresource>
+</RCC>
