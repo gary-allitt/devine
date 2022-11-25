@@ -1,7 +1,10 @@
 #include <windows.h>
 #include <QString.h>
+#include <QStringList.h>
 #include <propsys.h>
+#ifndef _SETUPAPI_VER 
 #define _SETUPAPI_VER _WIN32_WINNT_WIN10
+#endif
 #include <setupapi.h>
 
 
@@ -18,7 +21,10 @@ public:
   DWORD GetDeviceRegistryPropertyDW(DWORD a_property);
   void EnableDevice();
   void DisableDevice();
+  void StopDevice();
+  void StartDevice();
   void RemoveDevice();
+  bool SetDeviceRegistryProperty(DWORD a_property, const QStringList& a_values);
 
 private:
   HDEVINFO the_info_set;

@@ -32,11 +32,6 @@ private:
     NativeEvents* the_native_events;
     QActionGroup the_show_by_group;
 
-    QAction* the_disable;
-    QAction* the_enable;
-    QAction* the_uninstall;
-    QAction* the_properties;
-
     QStringList the_extended_columns;
 
     Glue g;
@@ -48,6 +43,7 @@ private:
     void LoadByConnectionView();
     void PopulateLeaf(QTreeWidgetItem* parent);
     void FetchColumnSettings();
+    bool ItemMatchesFilter(QTreeWidgetItem* item);
 
     struct device
     {
@@ -70,6 +66,8 @@ private:
 
     vector<device> the_devices;
     map<QString, GUID> the_used_device_class_guids;
+    vector<QStringList> the_filter_or_s;
+
 
 private slots: 
     void OnItemExpanded(QTreeWidgetItem*);
@@ -85,5 +83,6 @@ private slots:
     void OnUninstall();
     void OnProperties(); 
     void OnScanHardware(); 
+    void OnSetupMenu();
 };
 #endif // MAINWINDOW_H

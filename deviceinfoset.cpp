@@ -1,5 +1,8 @@
 #include <windows.h>
+#include <initguid.h>
 #include <devpkey.h>
+#include <memory>
+using namespace std;
 #include "deviceinfoset.h"
 
 // OO wrapper for Windows SetupDiXXX stuff
@@ -79,6 +82,16 @@ void DeviceInfoSet::DisableDevice()
   ChangeDeviceState(DICS_DISABLE);
 }
 
+void DeviceInfoSet::StartDevice()
+{
+  ChangeDeviceState(DICS_START);
+}
+
+void DeviceInfoSet::StopDevice()
+{
+  ChangeDeviceState(DICS_STOP);
+}
+
 void DeviceInfoSet::RemoveDevice()
 {
   SetupDiRemoveDevice(the_info_set, &the_info_data);
@@ -99,4 +112,27 @@ void DeviceInfoSet::ChangeDeviceState(int aCode)
   SetupDiSetClassInstallParamsA(the_info_set, &the_info_data, (PSP_CLASSINSTALL_HEADER)&params, sizeof(SP_PROPCHANGE_PARAMS));
   SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, the_info_set, &the_info_data);
 }
+
+
+bool DeviceInfoSet::SetDeviceRegistryProperty(DWORD a_property, const QStringList& a_values)
+{
+  int l = 1;
+  for (auto v : a_values)
+  {
+    l += v.length() + 1;
+  }
+  unique_ptr<char> buf(new char[l]);
+  char* p = buf.get();
+
+  for (auto v : a_values)
+  {
+    strcpy(p, v.toStdString().c_str());
+    p += v.length() + 1;
+  }
+  *p = '\0';
+  return(SetupDiSetDeviceRegistryPropertyA(the_info_set, &the_info_data, a_property, (PBYTE)buf.get(), (DWORD)l));
+
+}
+
+
 

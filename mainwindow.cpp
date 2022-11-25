@@ -20,6 +20,11 @@ static const int ROLE_CLASS_GUID = Qt::UserRole + 1;
 static const int ROLE_ENABLED = Qt::UserRole + 2;
 static const int ROLE_IS_DEVICE = Qt::UserRole + 3;
 
+// todo 
+// only hidden view 
+// review https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/hiding-devices-from-device-manager
+// help for search
+
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent), 
   the_settings("gary-allitt","devine"),
@@ -51,17 +56,10 @@ MainWindow::MainWindow(QWidget* parent)
   
   ui->actionShow_hidden_devices->setChecked(the_settings.value("options/show_hidden").toBool());
 
-  the_disable = new QAction(tr("&Disable device(s)"), this);
-  connect(the_disable, &QAction::triggered, this, &MainWindow::OnDisable);
-
-  the_enable = new QAction(tr("&Enable device(s)"), this);
-  connect(the_enable, &QAction::triggered, this, &MainWindow::OnEnable);
-
-  the_uninstall = new QAction(tr("&Uninstall device(s)"), this);
-  connect(the_uninstall, &QAction::triggered, this, &MainWindow::OnUninstall);
-
-  the_properties = new QAction(tr("&Properties"), this);
-  connect(the_properties, &QAction::triggered, this, &MainWindow::OnProperties);
+  connect(ui->the_disable, &QAction::triggered, this, &MainWindow::OnDisable);
+  connect(ui->the_enable, &QAction::triggered, this, &MainWindow::OnEnable);
+  connect(ui->the_uninstall, &QAction::triggered, this, &MainWindow::OnUninstall);
+  connect(ui->the_properties, &QAction::triggered, this, &MainWindow::OnProperties);
 
   connect(ui->the_tree, &QTreeWidget::itemExpanded, this, &MainWindow::OnItemExpanded);
   connect(the_native_events, &NativeEvents::sigDeviceChange, this, &MainWindow::OnDeviceChange);
@@ -76,12 +74,16 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->actionDevices_by_connection, &QAction::triggered, this, &MainWindow::OnShowBy);
   connect(ui->actionSelect_columns, &QAction::triggered, this, &MainWindow::OnSelectColumns);
   connect(ui->the_tree, &QTreeWidget::customContextMenuRequested, this, &MainWindow::OnRightClick);
+  connect(ui->the_tree, &QTreeWidget::itemSelectionChanged, this, &MainWindow::OnSetupMenu);
   connect(&the_redraw_timer, &QTimer::timeout, this, &MainWindow::OnDeviceChange);
 
   the_devices.reserve(4096);
 
+  OnSetupMenu();
+
   FetchColumnSettings();
   OnDeviceChange();
+
 }
 
 MainWindow::~MainWindow()
@@ -162,6 +164,7 @@ void MainWindow::OnDeviceChange()
   EnumDevices();
   LoadView();
   OnFilter();
+  OnSetupMenu();
 }
 
 void MainWindow::OnSelectColumns()
@@ -176,19 +179,43 @@ void MainWindow::OnSelectColumns()
   }
 }
 
+bool MainWindow::ItemMatchesFilter(QTreeWidgetItem* item)
+{
+
+  for (int c = 0; c < ui->the_tree->columnCount(); c++)
+  {
+    QString val = item->text(c).toLower();
+    for (auto o : the_filter_or_s)
+    {
+      for (auto _ : o)
+      {
+        if (val.indexOf(_) < 0)
+        {
+          goto next;
+        }
+      }
+      return(true);
+next:;
+    }
+  }
+
+  return(false);
+}
 void MainWindow::OnFilter()
 { 
   // the text in the filter field changed
   QString filter = ui->the_filter->text().trimmed().toLower();
 
-  if (filter.length()) // todo, on transition to filtering
+  the_filter_or_s.clear(); 
+  QStringList and_s = filter.split("|", Qt::SkipEmptyParts);
+  for (auto _ : and_s)
   {
-    QTreeWidgetItemIterator it(ui->the_tree);
-    while (*it)
-    {
-      (*it)->setHidden(true);
-      ++it;
-    }
+    the_filter_or_s.push_back(_.split(" ", Qt::SkipEmptyParts));
+  }
+
+
+  if (filter.length()) 
+  {
     bool any = false;
     do
     {
@@ -211,16 +238,20 @@ void MainWindow::OnFilter()
       QTreeWidgetItemIterator it(ui->the_tree);
       while (*it)
       {
-        for (int i = 0; i < ui->the_tree->columnCount(); i++)
+        (*it)->setHidden(true);
+        ++it;
+      }
+    }
+    {
+      QTreeWidgetItemIterator it(ui->the_tree);
+      while (*it)
+      {
+        if (ItemMatchesFilter(*it))
         {
-          if ((*it)->text(i).toLower().indexOf(filter) >= 0)
+          (*it)->setHidden(false);
+          for (QTreeWidgetItem* parent = (*it)->parent(); parent; parent = parent->parent())
           {
-            (*it)->setHidden(false);
-            for (QTreeWidgetItem* parent = (*it)->parent(); parent; parent = parent->parent())
-            {
-              parent->setHidden(false);
-            }
-            break;
+            parent->setHidden(false);
           }
         }
         ++it;
@@ -270,7 +301,7 @@ void MainWindow::OnItemExpanded(QTreeWidgetItem* parent)
 
 void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
 {
-  // set up a QTreeWidgetItem and where appropriate it's descendants
+  // set up a QTreeWidgetItem and where appropriate its descendants
   // note that this implements a simple model to reflect changes without a full reload 
   // on every change as in the default device manager 
   // this gives reasonable performance whilst avoiding the complexity of full blown model / view implementation
@@ -350,7 +381,8 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
           item->setText(c, it->instance_id_display);
         }
         if (e == "first_hardware_id")
-        { // hardware id is a multi sz, we show the first in the tree, the full list can be seen in properties. 
+        { 
+          // hardware id is a multi sz, we show the first in the tree, the full list can be seen in properties. 
           item->setText(c, it->first_hardware_id); 
         }
         if (e == "manufacturer")
@@ -484,7 +516,8 @@ void MainWindow::LoadByTypeView()
 }
 
 void MainWindow::LoadByConnectionView()
-{ //hierarchical view of devices 
+{ 
+  //hierarchical view of devices 
   ui->the_tree->setSortingEnabled(false);
   QString root;
   for (auto it = the_devices.begin(); it != the_devices.end(); it++)
@@ -591,7 +624,7 @@ void MainWindow::EnumDevices()
 
 }
 
-void MainWindow::OnRightClick(const QPoint& pos)
+void MainWindow::OnSetupMenu()
 {
   bool allSelnsDisabledDevice = true;
   bool allSelnsEnabledDevice = true;
@@ -615,39 +648,62 @@ void MainWindow::OnRightClick(const QPoint& pos)
       allSelnsDevice = false;
     }
     cnt++;
-    ++it;
+    it++;
   }
   if (!cnt)
   {
-    return;
+    allSelnsDisabledDevice = false;
+    allSelnsEnabledDevice = false;
+    allSelnsDevice = false;
   }
+  ui->the_disable->setEnabled(allSelnsEnabledDevice);
+  ui->the_enable->setEnabled(allSelnsDisabledDevice);
+  ui->the_uninstall->setEnabled(allSelnsDevice);
+  ui->the_properties->setEnabled(allSelnsDevice && cnt == 1);
 
+}
+
+void MainWindow::OnRightClick(const QPoint& pos)
+{
+  OnSetupMenu();
+
+  bool any = false;
   QMenu menu(this);
-  if (allSelnsEnabledDevice)
+  if (ui->the_disable->isEnabled())
   {
-    menu.addAction(the_disable);
+    menu.addAction(ui->the_disable);
+    any = true;
   }
-  if (allSelnsDisabledDevice)
+  if (ui->the_enable->isEnabled())
   {
-    menu.addAction(the_enable);
+    menu.addAction(ui->the_enable);
+    any = true;
   }
-  if (allSelnsDevice)
+  if (ui->the_uninstall->isEnabled())
   {
-    menu.addAction(the_uninstall);
+    menu.addAction(ui->the_uninstall);
+    any = true;
   }
-  if (allSelnsDevice && cnt == 1)
+  if (ui->the_properties->isEnabled())
   {
-    menu.addSeparator(); 
-    menu.addAction(the_properties);
+    if (any)
+    {
+      menu.addSeparator();
+    }
+    menu.addAction(ui->the_properties);
+    any = true;
   }
 
-  QPoint pt(pos);
-  menu.exec(ui->the_tree->mapToGlobal(pos));
+  if (any)
+  {
+    QPoint pt(pos);
+    menu.exec(ui->the_tree->mapToGlobal(pos));
+  }
 }
 
 void MainWindow::OnDisable()
 { 
-  // disable the selected device(s). Unlike the Windows device manager multiple selections is allowed 
+  // disable the selected device(s). Unlike the Windows device manager multiple selections are allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
   while (*it)
@@ -663,7 +719,7 @@ void MainWindow::OnDisable()
 
 void MainWindow::OnEnable()
 {
-  // enable the selected device(s). Unlike the Windows device manager multiple selections is allowed 
+  // enable the selected device(s). Unlike the Windows device manager multiple selections are allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
   while (*it)
@@ -679,7 +735,7 @@ void MainWindow::OnEnable()
 
 void MainWindow::OnUninstall()
 {
-  // delete the selected device(s). Unlike the Windows device manager multiple selections is allowed 
+  // delete the selected device(s). Unlike the Windows device manager multiple selections are allowed 
   QTreeWidgetItemIterator it(ui->the_tree, QTreeWidgetItemIterator::Selected);
   while (*it)
   {

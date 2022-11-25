@@ -46,7 +46,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    devine.qrc
+    devine.qrc \
+    dm.qrc
 
 RC_ICONS = devine.ico
 
