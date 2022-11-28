@@ -40,14 +40,16 @@ QMAKE_LFLAGS_RELEASE += /DEFAULTLIB:"Cfgmgr32.lib"
 
 QMAKE_LFLAGS_RELEASE += /DEBUG
 
+QMAKE_CXXFLAGS_RELEASE += /Zi
+QMAKE_CXXFLAGS_RELEASE += /Od
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    devine.qrc \
-    dm.qrc
+    devine.qrc 
 
 RC_ICONS = devine.ico
 

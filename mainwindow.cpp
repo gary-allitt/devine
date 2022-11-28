@@ -23,7 +23,11 @@ static const int ROLE_IS_DEVICE = Qt::UserRole + 3;
 // todo 
 // only hidden view 
 // review https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/hiding-devices-from-device-manager
-// help for search
+// remember searches
+// export 
+// open export
+// export as text 
+
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent), 
@@ -226,8 +230,8 @@ void MainWindow::OnFilter()
         if (!(*it)->isExpanded()
           && (*it)->childIndicatorPolicy() == QTreeWidgetItem::ShowIndicator)
         {
-          QSignalBlocker bs(ui->the_tree); // call OnItemExpanded() in the context of original signal
-          OnItemExpanded(*it);             // so that transition effects know where the event is fron
+          QSignalBlocker bs(ui->the_tree); // call PopulateLeaf() in the context of original signal
+          PopulateLeaf(*it);              // so that transition effects know where the event is from
           (*it)->setExpanded(true);
           any = true;
         }

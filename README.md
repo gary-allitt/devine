@@ -52,3 +52,18 @@ Devine is an alternative to the Windows device manager that retains the look and
   In the pre-built version the manifest is set to enforce this, but we have seen inconsistent behaviour on Windows 11. 
   If you see issues we suggest creating a shortcut to access Devine with administrator rights enforced. 
 
+** Filter options. **
+
+  Combine multiple search terms by using a pipe symbol "|" as the OR operator and spaces as the AND operator. 
+
+  Examples 
+
+    aaa|bbb        show all entries containing either the term aaa OR bbe 
+
+    ccc ddd        show all entries containing both the terms ccc AND ddd 
+
+    eee fff|ggg    show all entries containing the terms eee and fff in a single entry or ggg
+
+                   in other words AND (space) is evaluated first, using () to illustrate order of evaluation 
+
+                        (eee fff)|ggg 
