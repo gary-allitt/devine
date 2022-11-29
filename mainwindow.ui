@@ -103,6 +103,9 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionExport"/>
+    <addaction name="separator"/>
     <addaction name="the_properties"/>
     <addaction name="separator"/>
     <addaction name="actionE_xit"/>
@@ -210,7 +213,17 @@
   </action>
   <action name="the_properties">
    <property name="text">
-    <string>Properties</string>
+    <string>&amp;Properties</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>&amp;Export</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="text">
+    <string>&amp;Open</string>
    </property>
   </action>
  </widget>

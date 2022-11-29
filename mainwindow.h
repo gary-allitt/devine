@@ -84,5 +84,6 @@ private slots:
     void OnProperties(); 
     void OnScanHardware(); 
     void OnSetupMenu();
+    void OnExport();
 };
 #endif // MAINWINDOW_H

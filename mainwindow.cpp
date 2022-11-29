@@ -1,5 +1,8 @@
 #include <windows.h>
 #include <QString.h>
+#include <QFileDialog>
+#include <QMessageBox>
+
 #include <map>
 #include <set>
 using namespace std;
@@ -67,6 +70,8 @@ MainWindow::MainWindow(QWidget* parent)
 
   connect(ui->the_tree, &QTreeWidget::itemExpanded, this, &MainWindow::OnItemExpanded);
   connect(the_native_events, &NativeEvents::sigDeviceChange, this, &MainWindow::OnDeviceChange);
+  connect(ui->actionExport, &QAction::triggered, this, &MainWindow::OnExport);
+
   connect(ui->actionE_xit, &QAction::triggered, qApp, &QGuiApplication::quit);
   connect(ui->action_Scan_for_hardware_changes, &QAction::triggered, this, &MainWindow::OnScanHardware);
   connect(ui->actionShow_hidden_devices, &QAction::triggered, this, &MainWindow::OnShowHidden);
@@ -775,5 +780,116 @@ void MainWindow::OnScanHardware()
   CM_Locate_DevNode(&dnDevInst, NULL, CM_LOCATE_DEVNODE_NORMAL);
   CM_Reenumerate_DevNode(dnDevInst, 0);
 }
+
+void MainWindow::OnExport()
+{
+  QString selected_export_filter = the_settings.value("options/selected_export_filter", QString()).toString();
+  QString selected_export_folder = the_settings.value("options/selected_export_folder", QString()).toString();
+
+  QString fn = QFileDialog::getSaveFileName(this, tr("Export"), selected_export_folder, tr("Devine file (*.dxp);;Text file (*.txt)"), &selected_export_filter);
+
+  if (!fn.length())
+  {
+    return; 
+  }
+  the_settings.setValue("options/selected_export_filter", selected_export_filter);
+  the_settings.setValue("options/selected_export_folder", selected_export_folder);
+
+  if (fn.right(4).toLower() == ".dxp")
+  {
+
+  }
+  else
+  {
+    QFile fo(fn);
+    if (!fo.open(QFile::WriteOnly))
+    {
+      QMessageBox::warning(this, "Error", "Unable to create export");
+      return; 
+    }
+    vector<qsizetype> widths;
+    for (int i = 0; i < ui->the_tree->columnCount(); i++)
+    {
+      widths.push_back(0);
+    }
+
+    // calculate the character widths for each column
+    std::function<void(QTreeWidgetItem* a_item, vector<qsizetype>& a_widths, int a_level)> calc_widths;
+    calc_widths = [&](QTreeWidgetItem* a_item, vector<qsizetype>& a_widths, int a_level)
+    {
+      if (a_level)
+      {
+        for (int c = 0; c < a_widths.size(); c++)
+        {
+          qsizetype w = a_item->text(c).length();
+          if (a_level > 1) // level 0 is invisible root, level 1 is real root
+          {
+            w += (a_level - 1) * 2 + 1;
+          }
+          a_widths[c] = max(a_widths[c], w);
+        }
+      }
+      for (int c = 0; c < a_item->childCount(); c++)
+      {
+        QTreeWidgetItem* child = a_item->child(c);
+        if (!child->isHidden())
+        {
+          calc_widths(child, a_widths, a_level + 1);
+        }
+      }
+    };
+    calc_widths(ui->the_tree->invisibleRootItem(), widths, 0);
+    // do the export
+    std::function<void(QTreeWidgetItem* a_item, int a_level)> text_export;
+    text_export = [&](QTreeWidgetItem* a_item, int a_level)
+    {
+      if(a_level)
+      {
+        for (int c = 0; c < a_item->treeWidget()->columnCount(); c++)
+        {
+          int tree_visualisation_width = 0;
+          if (!c && a_level > 1)
+          {
+            fo.write("|");
+            tree_visualisation_width = (a_level - 1) * 2;
+            fo.write(QString().leftJustified(tree_visualisation_width - 1, '_').toLatin1());
+          }
+          fo.write(a_item->text(c).leftJustified((widths[c] + 1) - tree_visualisation_width).toLatin1());
+        }
+        fo.write("\r\n");
+      }
+      for (int c = 0; c < a_item->childCount(); c++)
+      {
+        QTreeWidgetItem* child = a_item->child(c);
+        if (!child->isHidden())
+        {
+          text_export(child, a_level + 1);
+        }
+      }
+      if (a_level==1)
+      {
+        fo.write("\r\n");
+      }
+    };
+    text_export(ui->the_tree->invisibleRootItem(),  0);
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
