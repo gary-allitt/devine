@@ -27,10 +27,7 @@ static const int ROLE_IS_DEVICE = Qt::UserRole + 3;
 // only hidden view 
 // review https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/hiding-devices-from-device-manager
 // remember searches
-// export 
-// open export
-// export as text 
-
+// review sort and resizeColumnToContents placements 
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent), 
@@ -44,6 +41,7 @@ MainWindow::MainWindow(QWidget* parent)
   the_show_by_group.addAction(ui->actionDevices_by_type);
   the_show_by_group.addAction(ui->actionDevices_by_connection);
   the_show_by_group.setExclusive(true);
+  the_import_mode = false;
 
   resize(the_settings.value("mainwindow/width",1024).toInt(), the_settings.value("mainwindow/height", 800).toInt());
 
@@ -71,6 +69,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->the_tree, &QTreeWidget::itemExpanded, this, &MainWindow::OnItemExpanded);
   connect(the_native_events, &NativeEvents::sigDeviceChange, this, &MainWindow::OnDeviceChange);
   connect(ui->actionExport, &QAction::triggered, this, &MainWindow::OnExport);
+  connect(ui->actionImport, &QAction::triggered, this, &MainWindow::OnImport);
 
   connect(ui->actionE_xit, &QAction::triggered, qApp, &QGuiApplication::quit);
   connect(ui->action_Scan_for_hardware_changes, &QAction::triggered, this, &MainWindow::OnScanHardware);
@@ -86,7 +85,7 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->the_tree, &QTreeWidget::itemSelectionChanged, this, &MainWindow::OnSetupMenu);
   connect(&the_redraw_timer, &QTimer::timeout, this, &MainWindow::OnDeviceChange);
 
-  the_devices.reserve(4096);
+  device::the_devices.reserve(4096);
 
   OnSetupMenu();
 
@@ -170,7 +169,10 @@ void MainWindow::LoadView()
 
 void MainWindow::OnDeviceChange()
 {
-  EnumDevices();
+  if (!the_import_mode)
+  {
+    EnumDevices();
+  }
   LoadView();
   OnFilter();
   OnSetupMenu();
@@ -326,7 +328,7 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
     devices_were[item->data(0, ROLE_INSTANCE_ID).toString()] = item;
   }
 
-  for (auto it = the_devices.begin(); it != the_devices.end(); it++)
+  for (auto it = device::the_devices.begin(); it != device::the_devices.end(); it++)
   {
     if ((ui->actionDevices_by_type->isChecked() && it->class_guid_readable == parent_class_guid)
       || (ui->actionDevices_by_connection->isChecked() && it->parent == parent_instance_id)
@@ -529,7 +531,7 @@ void MainWindow::LoadByConnectionView()
   //hierarchical view of devices 
   ui->the_tree->setSortingEnabled(false);
   QString root;
-  for (auto it = the_devices.begin(); it != the_devices.end(); it++)
+  for (auto it = device::the_devices.begin(); it != device::the_devices.end(); it++)
   {
     if (it->parent == "")
     {
@@ -551,7 +553,7 @@ void MainWindow::EnumDevices()
 { 
   // on each update we build a complete list of device instances, this is relatively quick
   // loading into the treewidget is done on demand as this is a little slower 
-  the_devices.clear();
+  device::the_devices.clear();
  
   set<QString> parents;
 
@@ -623,10 +625,10 @@ void MainWindow::EnumDevices()
     d._class= dis.GetDeviceProperty(&DEVPKEY_Device_Class);
     parents.insert(d.parent);
 
-    the_devices.push_back(d);
+    device::the_devices.push_back(d);
 
   }
-  for (auto& _ : the_devices)
+  for (auto& _ : device::the_devices)
   {
     _.has_children = parents.find(_.instance_id) != parents.end();
   }
@@ -635,6 +637,15 @@ void MainWindow::EnumDevices()
 
 void MainWindow::OnSetupMenu()
 {
+  if (the_import_mode)
+  {
+    ui->the_disable->setEnabled(false);
+    ui->the_enable->setEnabled(false);
+    ui->the_uninstall->setEnabled(false);
+    ui->the_properties->setEnabled(false);
+    return;
+  }
+
   bool allSelnsDisabledDevice = true;
   bool allSelnsEnabledDevice = true;
   bool allSelnsDevice = true;
@@ -669,7 +680,6 @@ void MainWindow::OnSetupMenu()
   ui->the_enable->setEnabled(allSelnsDisabledDevice);
   ui->the_uninstall->setEnabled(allSelnsDevice);
   ui->the_properties->setEnabled(allSelnsDevice && cnt == 1);
-
 }
 
 void MainWindow::OnRightClick(const QPoint& pos)
@@ -781,32 +791,66 @@ void MainWindow::OnScanHardware()
   CM_Reenumerate_DevNode(dnDevInst, 0);
 }
 
+
+void MainWindow::OnImport()
+{
+  QString selected_import_folder = the_settings.value("options/selected_import_folder", QString()).toString();
+
+  QString fn = QFileDialog::getOpenFileName(this, tr("Open"), selected_import_folder, tr("Devine file (*.dvx)"));
+
+  if (!fn.length())
+  {
+    return;
+  }
+  QFileInfo fi(fn);
+  the_settings.setValue("options/selected_import_folder", fi.absolutePath());
+
+  QFile f(fn);
+  if (!f.open(QFile::ReadOnly))
+  {
+    QMessageBox::warning(this, "Error", "Unable to open file");
+    return;
+  }
+
+  if(!device::ImportAsXML(f))
+  {
+    QMessageBox::warning(this, "Error", "Unable to read file");
+    return;
+  }
+  the_import_mode = true;
+  QString title = tr("Devine showing imported file: %1").arg(fi.fileName());
+  setWindowTitle(title);
+  OnDeviceChange();
+}
+
 void MainWindow::OnExport()
 {
   QString selected_export_filter = the_settings.value("options/selected_export_filter", QString()).toString();
   QString selected_export_folder = the_settings.value("options/selected_export_folder", QString()).toString();
 
-  QString fn = QFileDialog::getSaveFileName(this, tr("Export"), selected_export_folder, tr("Devine file (*.dxp);;Text file (*.txt)"), &selected_export_filter);
+  QString fn = QFileDialog::getSaveFileName(this, tr("Export"), selected_export_folder, tr("Devine file (*.dvx);;Text file (*.txt)"), &selected_export_filter);
 
   if (!fn.length())
   {
     return; 
   }
+  QFileInfo fi(fn);
   the_settings.setValue("options/selected_export_filter", selected_export_filter);
-  the_settings.setValue("options/selected_export_folder", selected_export_folder);
+  the_settings.setValue("options/selected_export_folder", fi.absolutePath());
 
-  if (fn.right(4).toLower() == ".dxp")
+  QFile fo(fn);
+  if (!fo.open(QFile::WriteOnly))
   {
+    QMessageBox::warning(this, "Error", "Unable to create export");
+    return;
+  }
 
+  if (fn.right(4).toLower() == ".dvx")
+  {
+    device::ExportAsXML(fo);
   }
   else
   {
-    QFile fo(fn);
-    if (!fo.open(QFile::WriteOnly))
-    {
-      QMessageBox::warning(this, "Error", "Unable to create export");
-      return; 
-    }
     vector<qsizetype> widths;
     for (int i = 0; i < ui->the_tree->columnCount(); i++)
     {

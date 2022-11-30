@@ -103,7 +103,7 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionOpen"/>
+    <addaction name="actionImport"/>
     <addaction name="actionExport"/>
     <addaction name="separator"/>
     <addaction name="the_properties"/>
@@ -221,9 +221,9 @@
     <string>&amp;Export</string>
    </property>
   </action>
-  <action name="actionOpen">
+  <action name="actionImport">
    <property name="text">
-    <string>&amp;Open</string>
+    <string>&amp;Import</string>
    </property>
   </action>
  </widget>

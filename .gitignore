@@ -355,3 +355,5 @@ moc_*
 .ui
 .moc
 .qrc
+
+enc_temp_folder/

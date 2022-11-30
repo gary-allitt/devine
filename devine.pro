@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui xml
 TEMPLATE=vcapp
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -32,6 +32,8 @@ SOURCES += deviceinfoset.cpp
 HEADERS += deviceinfoset.h
 SOURCES += glue.cpp
 HEADERS += glue.h
+SOURCES += device.cpp
+HEADERS += device.h
 
 QMAKE_LFLAGS_DEBUG += /DEFAULTLIB:"Setupapi.lib"
 QMAKE_LFLAGS_RELEASE += /DEFAULTLIB:"Setupapi.lib"

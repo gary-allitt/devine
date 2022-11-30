@@ -6,6 +6,7 @@
 #include <QActionGroup>
 #include <QTimer>
 #include "glue.h"
+#include "device.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -33,6 +34,7 @@ private:
     QActionGroup the_show_by_group;
 
     QStringList the_extended_columns;
+    bool the_import_mode;
 
     Glue g;
 
@@ -45,26 +47,6 @@ private:
     void FetchColumnSettings();
     bool ItemMatchesFilter(QTreeWidgetItem* item);
 
-    struct device
-    {
-      QString description;
-      GUID class_guid;
-      QString class_guid_readable;
-      QString first_hardware_id;
-      QString instance_id;
-      QString instance_id_display;
-      QString manufacturer;
-      QString provider;
-      QString _class;
-      QString icon;
-      QString parent;
-      bool connected;
-      bool has_children;
-      bool enabled;
-      bool problem;
-    };
-
-    vector<device> the_devices;
     map<QString, GUID> the_used_device_class_guids;
     vector<QStringList> the_filter_or_s;
 
@@ -85,5 +67,6 @@ private slots:
     void OnScanHardware(); 
     void OnSetupMenu();
     void OnExport();
+    void OnImport();
 };
 #endif // MAINWINDOW_H

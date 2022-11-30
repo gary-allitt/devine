@@ -53,6 +53,9 @@
     <ClCompile Include="columns.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="deviceinfoset.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -76,6 +79,9 @@
     <CustomBuild Include="columns.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="deviceinfoset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
