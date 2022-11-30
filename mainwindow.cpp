@@ -27,7 +27,9 @@ static const int ROLE_IS_DEVICE = Qt::UserRole + 3;
 // only hidden view 
 // review https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/hiding-devices-from-device-manager
 // remember searches
-// review sort and resizeColumnToContents placements 
+// progress bar when deleting 
+// warn if reboot needed after delete
+
 
 MainWindow::MainWindow(QWidget* parent)
   : QMainWindow(parent), 
@@ -300,9 +302,11 @@ void MainWindow::OnAbout()
 }
 
 void MainWindow::OnItemExpanded(QTreeWidgetItem* parent)
-{
+{ 
   parent->treeWidget()->setSortingEnabled(false);
   PopulateLeaf(parent);
+  // because we block signals when programatically expanding an item, this only gets 
+  // called when a single item is expanded, so it's reasonably performant to sort and resize herer
   ui->the_tree->sortByColumn(0, Qt::SortOrder::AscendingOrder);
   for (int i = 0; i < ui->the_tree->columnCount(); i++)
   {
@@ -764,7 +768,12 @@ void MainWindow::OnUninstall()
     DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
     if (dis.Find(instance_id))
     {
+      QString inf_path = dis.GetDeviceProperty(&DEVPKEY_Device_DriverInfPath).toLower();
       dis.RemoveDevice();
+      if (inf_path.left(3) == "oem")
+      {
+        SetupUninstallOEMInfA(inf_path.toLatin1().constData(), 0, NULL);
+      }
     }
     ++it;
   }
