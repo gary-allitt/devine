@@ -357,3 +357,4 @@ moc_*
 .qrc
 
 enc_temp_folder/
+package/
