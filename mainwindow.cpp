@@ -229,24 +229,29 @@ void MainWindow::OnFilter()
 
   if (filter.length()) 
   {
-    bool any = false;
-    do
     {
-      any = false;
+      vector<QTreeWidgetItem*> items;
+      items.reserve(1024);
+      QSignalBlocker bs(ui->the_tree);
       QTreeWidgetItemIterator it(ui->the_tree);
       while (*it)
       {
         if (!(*it)->isExpanded()
           && (*it)->childIndicatorPolicy() == QTreeWidgetItem::ShowIndicator)
         {
-          QSignalBlocker bs(ui->the_tree); // call PopulateLeaf() in the context of original signal
-          PopulateLeaf(*it);              // so that transition effects know where the event is from
-          (*it)->setExpanded(true);
-          any = true;
+          items.push_back(*it);
         }
         ++it;
       }
-    } while (any);
+      for (auto item : items)
+      {                                   // call PopulateLeaf() in the context of original signal
+        PopulateLeaf(item);               // so that transition effects know where the event is from
+        if (item->childCount())
+        {
+          item->setExpanded(true);
+        }
+      }
+    }
     {
       QTreeWidgetItemIterator it(ui->the_tree);
       while (*it)
@@ -425,9 +430,13 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
     {
       deletes.push_back(item);
     }
-    if (ui->actionDevices_by_connection->isChecked() && item->isExpanded())
+    else  if (ui->actionDevices_by_connection->isChecked() /*&& item->isExpanded()*/)
     {
-      PopulateLeaf(item); 
+      PopulateLeaf(item);
+      if (item->childCount() && ui->the_filter->text().trimmed().length())
+      {
+        item->setExpanded(true);
+      }
     }
   }
   for (auto d : deletes)
@@ -629,8 +638,10 @@ void MainWindow::EnumDevices()
     d._class= dis.GetDeviceProperty(&DEVPKEY_Device_Class);
     parents.insert(d.parent);
 
-    device::the_devices.push_back(d);
-
+    if (d.instance_id.length())
+    {  // if a device goes away after creating DeviceInfoSet we get an empty entry back, ignore it
+      device::the_devices.push_back(d); 
+    }
   }
   for (auto& _ : device::the_devices)
   {
@@ -763,17 +774,11 @@ void MainWindow::OnUninstall()
   while (*it)
   {
     QString instance_id = (*it)->data(0, ROLE_INSTANCE_ID).toString();
-    QString cmd = QString("/DeviceId ") + instance_id;
 
     DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
     if (dis.Find(instance_id))
     {
-      QString inf_path = dis.GetDeviceProperty(&DEVPKEY_Device_DriverInfPath).toLower();
-      dis.RemoveDevice();
-      if (inf_path.left(3) == "oem")
-      {
-        SetupUninstallOEMInfA(inf_path.toLatin1().constData(), 0, NULL);
-      }
+      dis.RemoveDevice(true);
     }
     ++it;
   }

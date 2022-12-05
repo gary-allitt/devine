@@ -4,6 +4,7 @@
 #include <memory>
 using namespace std;
 #include "deviceinfoset.h"
+#include "cfgmgr32.h"
 
 // OO wrapper for Windows SetupDiXXX stuff
 // makes the client code more readable 
@@ -33,7 +34,7 @@ bool DeviceInfoSet::Find(const QString& a_instance_id)
       return(false);
     }
     QString instance_id = GetDeviceProperty(&DEVPKEY_Device_InstanceId).toLower();
-    if (instance_id.toLower() == a_instance_id.toLower())
+    if (instance_id == a_instance_id.toLower())
     {
       return(true);
     }
@@ -92,9 +93,15 @@ void DeviceInfoSet::StopDevice()
   ChangeDeviceState(DICS_STOP);
 }
 
-void DeviceInfoSet::RemoveDevice()
+void DeviceInfoSet::RemoveDevice(bool a_remove_oem_package)
 {
+  QString inf_path = GetDeviceProperty(&DEVPKEY_Device_DriverInfPath).toLower();
   SetupDiRemoveDevice(the_info_set, &the_info_data);
+  if (a_remove_oem_package 
+    && inf_path.left(3) == "oem")
+  {
+    SetupUninstallOEMInfA(inf_path.toLatin1().constData(), 0, NULL);
+  }
 }
 
 
@@ -132,6 +139,14 @@ bool DeviceInfoSet::SetDeviceRegistryProperty(DWORD a_property, const QStringLis
   *p = '\0';
   return(SetupDiSetDeviceRegistryPropertyA(the_info_set, &the_info_data, a_property, (PBYTE)buf.get(), (DWORD)l));
 
+}
+
+/*static*/
+void DeviceInfoSet::Reenumerate()
+{
+  DEVINST dnDevInst;
+  CM_Locate_DevNode(&dnDevInst, NULL, CM_LOCATE_DEVNODE_NORMAL);
+  CM_Reenumerate_DevNode(dnDevInst, 0);
 }
 
 

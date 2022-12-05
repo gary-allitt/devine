@@ -23,8 +23,9 @@ public:
   void DisableDevice();
   void StopDevice();
   void StartDevice();
-  void RemoveDevice();
+  void RemoveDevice(bool a_remove_oem_package);
   bool SetDeviceRegistryProperty(DWORD a_property, const QStringList& a_values);
+  static void Reenumerate();
 
 private:
   HDEVINFO the_info_set;
