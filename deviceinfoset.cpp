@@ -61,9 +61,9 @@ DWORD DeviceInfoSet::GetDevicePropertyDW(const DEVPROPKEY* a_property_key)
 
 QString DeviceInfoSet::GetDeviceRegistryProperty(DWORD a_property)
 {
-  char value[1024] = "";
-  SetupDiGetDeviceRegistryPropertyA(the_info_set, &the_info_data, a_property, NULL, (PBYTE)value, sizeof(value), NULL);
-  return(QString(value));
+  WCHAR value[1024] = L"";
+  SetupDiGetDeviceRegistryProperty(the_info_set, &the_info_data, a_property, NULL, (PBYTE)value, sizeof(value), NULL);
+  return(QString::fromWCharArray(value));
 }
 
 DWORD DeviceInfoSet::GetDeviceRegistryPropertyDW(DWORD a_property)

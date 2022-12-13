@@ -6,7 +6,7 @@
 
 Columns::Columns(QWidget *parent) :
     QDialog(parent),
-  the_settings("oxenic", "devine"),
+  the_settings("gary-allitt", "devine"),
   ui(new Ui::Columns)
 {
     ui->setupUi(this);
