@@ -16,6 +16,7 @@ struct device
   QString _class;
   QString icon;
   QString parent;
+  QString pdo_name;
   bool connected;
   bool has_children;
   bool enabled;

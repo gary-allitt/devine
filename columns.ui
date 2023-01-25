@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>390</width>
-    <height>173</height>
+    <height>179</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,6 +46,13 @@
     <widget class="QCheckBox" name="ckClass">
      <property name="text">
       <string>Class</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="ckPDOName">
+     <property name="text">
+      <string>PDO name</string>
      </property>
     </widget>
    </item>

@@ -16,6 +16,7 @@ Columns::Columns(QWidget *parent) :
     ui->ckManufacturer->setChecked(the_settings.value("columns/manufacturer", false).toBool());
     ui->ckProvider->setChecked(the_settings.value("columns/provider", false).toBool());
     ui->ckClass->setChecked(the_settings.value("columns/class", false).toBool());
+    ui->ckPDOName->setChecked(the_settings.value("columns/pdo_name", false).toBool());
 }
 
 Columns::~Columns()
@@ -30,5 +31,6 @@ void Columns::OnOk()
   the_settings.setValue("columns/manufacturer", ui->ckManufacturer->isChecked());
   the_settings.setValue("columns/provider", ui->ckProvider->isChecked());
   the_settings.setValue("columns/class", ui->ckClass->isChecked());
-  accept(); 
+  the_settings.setValue("columns/pdo_name", ui->ckPDOName->isChecked());
+  accept();
 }

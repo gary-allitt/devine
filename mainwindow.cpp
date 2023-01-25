@@ -147,6 +147,11 @@ void MainWindow::FetchColumnSettings()
     the_extended_columns.push_back("class");
     ui->the_tree->headerItem()->setText(the_extended_columns.size(), "Class");
   }
+  if (the_settings.value("columns/pdo_name", false).toBool())
+  {
+    the_extended_columns.push_back("pdo_name");
+    ui->the_tree->headerItem()->setText(the_extended_columns.size(), "PDO name");
+  }
   ui->the_tree->setColumnCount(the_extended_columns.size()+1);
 
 }
@@ -417,6 +422,10 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
         {
           item->setText(c, it->_class);
         }
+        if (e == "pdo_name")
+        {
+          item->setText(c, it->pdo_name);
+        }
         c++;
       }
     }
@@ -636,6 +645,7 @@ void MainWindow::EnumDevices()
     d.manufacturer = dis.GetDeviceProperty(&DEVPKEY_Device_Manufacturer);
     d.provider = dis.GetDeviceProperty(&DEVPKEY_Device_DriverProvider);
     d._class= dis.GetDeviceProperty(&DEVPKEY_Device_Class);
+    d.pdo_name = dis.GetDeviceProperty(&DEVPKEY_Device_PDOName);
     parents.insert(d.parent);
 
     if (d.instance_id.length())
