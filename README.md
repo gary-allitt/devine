@@ -13,6 +13,8 @@ Devine is an alternative to the Windows device manager that retains the look and
 
   State transitions highlight added / removed device instances. New instances show green for a few seconds, removed instances show red 
   before being removed from the view. 
+  
+  Multi-select; disable, enable or uninstall multiple device instances in one operation. 
 
 
 **Limitations.** 
