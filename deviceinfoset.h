@@ -15,6 +15,7 @@ public:
   ~DeviceInfoSet();
   bool Enumerate(int i);
   bool Find(const QString& a_instance_id);
+  bool FindLocation(const QString& a_location);
   QString GetDeviceProperty(const DEVPROPKEY* a_property_key);
   DWORD GetDevicePropertyDW(const DEVPROPKEY* a_property_key);
   QString GetDeviceRegistryProperty(DWORD a_property);
@@ -23,6 +24,7 @@ public:
   void DisableDevice();
   void StopDevice();
   void StartDevice();
+  void Dump();
   void RemoveDevice(bool a_remove_oem_package);
   bool SetDeviceRegistryProperty(DWORD a_property, const QStringList& a_values);
   static void Reenumerate();

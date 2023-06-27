@@ -5,6 +5,7 @@
 using namespace std;
 #include "deviceinfoset.h"
 #include "cfgmgr32.h"
+#include <QDebug>
 
 // OO wrapper for Windows SetupDiXXX stuff
 // makes the client code more readable 
@@ -40,6 +41,37 @@ bool DeviceInfoSet::Find(const QString& a_instance_id)
     }
   }
 }
+
+bool DeviceInfoSet::FindLocation(const QString& a_location)
+{
+  for (int i = 0; ; i++)
+  {
+    if (!Enumerate(i))
+    {
+      return(false);
+    }
+    QStringList _ = GetDeviceProperty(&DEVPKEY_Device_InstanceId).toLower().split("\\");
+    QString location = _[_.count() - 1];
+    if (location == a_location.toLower())
+    {
+      return(true);
+    }
+  }
+}
+
+void DeviceInfoSet::Dump()
+{
+  for (int i = 0; ; i++)
+  {
+    if (!Enumerate(i))
+    {
+      return;
+    }
+    QString instance_id = GetDeviceProperty(&DEVPKEY_Device_InstanceId).toLower();
+    qDebug() << instance_id;
+  }
+}
+
 
 QString DeviceInfoSet::GetDeviceProperty(const DEVPROPKEY* a_property_key)
 {
