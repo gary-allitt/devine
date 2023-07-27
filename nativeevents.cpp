@@ -9,7 +9,12 @@ NativeEvents::NativeEvents()
 }
 
 /*virtual*/ 
-bool NativeEvents::nativeEventFilter(const QByteArray& eventType, void* message, qintptr*) 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+bool NativeEvents::nativeEventFilter(const QByteArray& eventType, void* message, qintptr*)
+#else
+bool NativeEvents::nativeEventFilter(const QByteArray& eventType, void* message, long*)
+#endif
+
 {
   if (eventType == "windows_generic_MSG")
   {

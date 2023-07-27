@@ -63,7 +63,7 @@ bool device::ImportAsXML(QFile& a_file)
     return(false);
   }
   the_devices.clear();
-
+  bool found_root = false; 
   QDomNode devices = doc.documentElement()/*.namedItem("devices")*/;
   for (QDomNode dn = devices.firstChild(); !dn.isNull(); dn = dn.nextSibling())
   {
@@ -90,6 +90,19 @@ bool device::ImportAsXML(QFile& a_file)
     Glue g;
     g.GUIDFromString(d.class_guid_readable.toLatin1().constData(),&d.class_guid);
     the_devices.push_back(d);
+    if (d.parent == "")
+    {
+      found_root = true;
+    }
   }
+  // temp; original exports from W7 didn't include this 
+  if (!found_root)
+  {
+    device d;
+    d.instance_id = "htree\\root\\0";
+    d.has_children = true;
+    device::the_devices.push_back(d);
+  }
+
   return(true);
 }

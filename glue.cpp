@@ -1,7 +1,10 @@
 #include <windows.h>
-
 #include <cfgmgr32.h>
+#include <QtGlobal>
 #include <QPainter>
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+#include <QtWin>
+#endif
 #include "glue.h"
 
 // helper methods to access Windows stuff and where appropraiate 
@@ -110,7 +113,11 @@ QPixmap Glue::IconFromResource(const QString& a_resource_file, int a_index, bool
   }
   HMODULE hm = MyGetModuleHandle(a_resource_file);
   HANDLE himage = LoadImageA(hm, MAKEINTRESOURCEA(a_index), IMAGE_ICON, 16, 16, 0);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
   QImage image = QImage::fromHICON((HICON)himage);
+#else
+  QImage image = QtWin::fromHICON((HICON)himage).toImage();
+#endif
   if (!connected)
   {
     GrayImage(image);
@@ -148,7 +155,11 @@ QPixmap Glue::IconFromPath(const QString& a_path, bool connected, bool disabled,
   {
     QString path = ExpandEnvironmentStrings(path_toks[0]);
     HANDLE himage = LoadImageA(NULL, path.toStdString().c_str(), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QImage image = QImage::fromHICON((HICON)himage);
+#else
+    QImage image = QtWin::fromHICON((HICON)himage).toImage();
+#endif
     if (!connected)
     {
       GrayImage(image);

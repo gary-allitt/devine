@@ -344,6 +344,12 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
 
   for (auto it = device::the_devices.begin(); it != device::the_devices.end(); it++)
   {
+    if (!it->connected
+      && !ui->actionShow_hidden_devices->isChecked())
+    {
+      continue; 
+    }
+
     if ((ui->actionDevices_by_type->isChecked() && it->class_guid_readable == parent_class_guid)
       || (ui->actionDevices_by_connection->isChecked() && it->parent == parent_instance_id)
       )
@@ -596,7 +602,7 @@ void MainWindow::EnumDevices()
     {
       d.instance_id_display = d.instance_id_display.mid(d.instance_id_display.indexOf("}\\") + 2);
     }
-    if (!d.connected
+/*    if (!d.connected
       && !ui->actionShow_hidden_devices->isChecked())
     {
       if (ui->actionDevices_by_connection->isChecked()
@@ -607,7 +613,7 @@ void MainWindow::EnumDevices()
       {
         continue;
       }
-    }
+    }*/
     d.class_guid_readable = dis.GetDeviceRegistryProperty(SPDRP_CLASSGUID);
     
     if (d.class_guid_readable.length())

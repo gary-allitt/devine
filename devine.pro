@@ -1,7 +1,7 @@
-QT       += core gui xml
-TEMPLATE=vcapp
+QT       += core gui xml widgets
+lessThan(QT_MAJOR_VERSION, 6): QT += winextras
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+TEMPLATE=vcapp
 
 CONFIG += c++11
 
