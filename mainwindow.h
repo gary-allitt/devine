@@ -8,6 +8,12 @@
 #include "glue.h"
 #include "device.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+#define SKIPEMPTYPARTS Qt::SkipEmptyParts
+#else
+#define SKIPEMPTYPARTS QString::SkipEmptyParts
+#endif
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE

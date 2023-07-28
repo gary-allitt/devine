@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x64">
+    <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
+    <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
+      <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -18,8 +18,8 @@
     <WindowsTargetPlatformMinVersion>10.0.22000.0</WindowsTargetPlatformMinVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="Configuration">
-    <PlatformToolset>v140</PlatformToolset>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
     <OutputDirectory>debug\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
     <CharacterSet>NotSet</CharacterSet>
@@ -27,7 +27,7 @@
     <IntermediateDirectory>debug\</IntermediateDirectory>
     <PrimaryOutput>devine</PrimaryOutput>
   </PropertyGroup>
-  <PropertyGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <PlatformToolset>v140</PlatformToolset>
     <OutputDirectory>release\</OutputDirectory>
     <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
@@ -38,36 +38,36 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
-  <ImportGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists(&apos;$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props&apos;)" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">debug\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">devine</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">true</IgnoreImportLibrary>
-    <OutDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</OutDir>
-    <IntDir Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">release\</IntDir>
-    <TargetName Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">devine</TargetName>
-    <IgnoreImportLibrary Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">true</IgnoreImportLibrary>
-    <LinkIncremental Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">devine</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">devine</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\devine;.;..\..\..\qt\5.15.2\msvc2015_64_installed\include;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtWidgets;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtWinExtras;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtGui;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtANGLE;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtXml;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtCore;.moc;.ui;..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\devine;.;c:\qt\5.11.2\include;c:\qt\5.11.2\include\QtWidgets;c:\qt\5.11.2\include\QtWinExtras;c:\qt\5.11.2\include\QtGui;c:\qt\5.11.2\include\QtANGLE;c:\qt\5.11.2\include\QtXml;c:\qt\5.11.2\include\QtCore;.moc;.ui;c:\qt\5.11.2\mkspecs\win32-armida;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <ObjectFileName>debug\</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -75,8 +75,9 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Widgetsd.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5WinExtrasd.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Guid.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Xmld.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Cored.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\qtmaind.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/DEFAULTLIB:Setupapi.lib /DEFAULTLIB:Cfgmgr32.lib &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>c:\qt\5.11.2\lib\qtmaind.lib;shell32.lib;c:\qt\5.11.2\lib\Qt5Widgetsd.lib;c:\qt\5.11.2\lib\Qt5WinExtrasd.lib;c:\qt\5.11.2\lib\Qt5Guid.lib;c:\qt\5.11.2\lib\Qt5Xmld.lib;c:\qt\5.11.2\lib\Qt5Cored.lib;c:\qt\5.11.2\lib\libEGLd.lib;c:\qt\5.11.2\lib\libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>c:\qt\5.11.2\lib;\c:openssl-1.1.0c-32bit-release-DLL-VS2015\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/DEFAULTLIB:Setupapi.lib /DEFAULTLIB:Cfgmgr32.lib "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
@@ -92,21 +93,21 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>..\..\devine;.;..\..\..\qt\5.15.2\msvc2015_64_installed\include;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtWidgets;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtWinExtras;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtGui;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtANGLE;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtXml;..\..\..\qt\5.15.2\msvc2015_64_installed\include\QtCore;.moc;.ui;..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\win32-msvc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\devine;.;c:\qt\5.11.2\include;c:\qt\5.11.2\include\QtWidgets;c:\qt\5.11.2\include\QtWinExtras;c:\qt\5.11.2\include\QtGui;c:\qt\5.11.2\include\QtANGLE;c:\qt\5.11.2\include\QtXml;c:\qt\5.11.2\include\QtCore;.moc;.ui;c:\qt\5.11.2\mkspecs\win32-armida;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExceptionHandling>Async</ExceptionHandling>
       <ObjectFileName>release\</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -114,13 +115,13 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Widgets.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5WinExtras.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Gui.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Xml.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\Qt5Core.lib;C:\qt\5.15.2\msvc2015_64_installed\lib\qtmain.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/DEFAULTLIB:Setupapi.lib /DEFAULTLIB:Cfgmgr32.lib &quot;/MANIFESTDEPENDENCY:type=&apos;win32&apos; name=&apos;Microsoft.Windows.Common-Controls&apos; version=&apos;6.0.0.0&apos; publicKeyToken=&apos;6595b64144ccf1df&apos; language=&apos;*&apos; processorArchitecture=&apos;*&apos;&quot; %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>c:\qt\5.11.2\lib\qtmain.lib;shell32.lib;c:\qt\5.11.2\lib\Qt5Widgets.lib;c:\qt\5.11.2\lib\Qt5WinExtras.lib;c:\qt\5.11.2\lib\Qt5Gui.lib;c:\qt\5.11.2\lib\Qt5Xml.lib;c:\qt\5.11.2\lib\Qt5Core.lib;c:\qt\5.11.2\lib\libEGL.lib;c:\qt\5.11.2\lib\libGLESv2.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>c:\qt\5.11.2\lib;\c:openssl-1.1.0c-32bit-release-DLL-VS2015\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/DEFAULTLIB:Setupapi.lib /DEFAULTLIB:Cfgmgr32.lib "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <LinkIncremental>false</LinkIncremental>
-      <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\devine.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
@@ -133,7 +134,7 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;NDEBUG;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_WINEXTRAS_LIB;QT_GUI_LIB;QT_XML_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -145,50 +146,61 @@
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="..\mainwindow.cpp" />
     <ClCompile Include="..\nativeevents.cpp" />
+    <ClCompile Include="..\properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\about.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\about.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\about.h -o .moc\moc_about.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../about.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_about.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\about.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\about.h -o .moc\moc_about.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../about.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_about.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\about.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\about.h -o .moc\moc_about.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../about.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_about.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\about.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\about.h -o .moc\moc_about.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../about.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_about.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\columns.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\columns.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\columns.h -o .moc\moc_columns.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../columns.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_columns.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\columns.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\columns.h -o .moc\moc_columns.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../columns.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_columns.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\columns.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\columns.h -o .moc\moc_columns.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../columns.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_columns.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\columns.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\columns.h -o .moc\moc_columns.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../columns.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_columns.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <ClInclude Include="..\device.h" />
     <ClInclude Include="..\deviceinfoset.h" />
     <ClInclude Include="..\glue.h" />
     <CustomBuild Include="..\mainwindow.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\mainwindow.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\mainwindow.h -o .moc\moc_mainwindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../mainwindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_mainwindow.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\mainwindow.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\mainwindow.h -o .moc\moc_mainwindow.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../mainwindow.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_mainwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\mainwindow.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\mainwindow.h -o .moc\moc_mainwindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../mainwindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_mainwindow.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\mainwindow.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\mainwindow.h -o .moc\moc_mainwindow.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../mainwindow.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_mainwindow.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\nativeevents.h">
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\nativeevents.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\nativeevents.h -o .moc\moc_nativeevents.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC ../nativeevents.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_nativeevents.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\nativeevents.h;.moc\moc_predefs.h;C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -IC:/qt/5.15.2/msvc2015_64_installed/mkspecs/win32-msvc -IC:/devl/devine -IC:/qt/5.15.2/msvc2015_64_installed/include -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWidgets -IC:/qt/5.15.2/msvc2015_64_installed/include/QtWinExtras -IC:/qt/5.15.2/msvc2015_64_installed/include/QtGui -IC:/qt/5.15.2/msvc2015_64_installed/include/QtANGLE -IC:/qt/5.15.2/msvc2015_64_installed/include/QtXml -IC:/qt/5.15.2/msvc2015_64_installed/include/QtCore -I. -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; ..\nativeevents.h -o .moc\moc_nativeevents.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC ../nativeevents.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_nativeevents.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\nativeevents.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\nativeevents.h -o .moc\moc_nativeevents.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../nativeevents.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_nativeevents.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\nativeevents.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\nativeevents.h -o .moc\moc_nativeevents.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../nativeevents.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_nativeevents.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\properties.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\properties.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\properties.h -o .moc\moc_properties.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC ../properties.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_properties.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\properties.h;.moc\moc_predefs.h;c:\qt\5.11.2\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_WINEXTRAS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/amf2compat/.moc/moc_predefs.h -Ic:/qt/5.11.2/mkspecs/win32-armida -IC:/devl/devine -Ic:/qt/5.11.2/include -Ic:/qt/5.11.2/include/QtWidgets -Ic:/qt/5.11.2/include/QtWinExtras -Ic:/qt/5.11.2/include/QtGui -Ic:/qt/5.11.2/include/QtANGLE -Ic:/qt/5.11.2/include/QtXml -Ic:/qt/5.11.2/include/QtCore -I. -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include" -I"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt" -I"E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt" ..\properties.h -o .moc\moc_properties.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC ../properties.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_properties.cpp;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -198,66 +210,79 @@
     <ClCompile Include=".moc\moc_nativeevents.cpp" />
     <CustomBuild Include=".moc\moc_predefs.h.cbt">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">cl -BxC:\qt\5.15.2\msvc2015_64_installed\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E ..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;.moc\moc_predefs.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Generate moc_predefs.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_predefs.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">cl -BxC:\qt\5.15.2\msvc2015_64_installed\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD /Zi /Od -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E ..\..\..\qt\5.15.2\msvc2015_64_installed\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;.moc\moc_predefs.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">Generate moc_predefs.h</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cl -Bxc:\Qt\5.11.2\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E c:\qt\5.11.2\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;.moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.moc\moc_predefs.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">cl -Bxc:\Qt\5.11.2\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -MD /Zi /Od -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E c:\qt\5.11.2\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;.moc\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.moc\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClCompile Include=".moc\moc_properties.cpp" />
     <ClCompile Include=".qrc\qrc_devine.cpp" />
     <ClInclude Include=".ui\ui_about.h" />
     <ClInclude Include=".ui\ui_columns.h" />
     <ClInclude Include=".ui\ui_mainwindow.h" />
+    <ClInclude Include=".ui\ui_properties.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\about.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\about.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\about.ui -o .ui\ui_about.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC ../about.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.ui\ui_about.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\about.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\about.ui -o .ui\ui_about.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC ../about.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.ui\ui_about.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\about.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\uic.exe ..\about.ui -o .ui\ui_about.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC ../about.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.ui\ui_about.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\about.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\uic.exe ..\about.ui -o .ui\ui_about.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC ../about.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.ui\ui_about.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\columns.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\columns.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\columns.ui -o .ui\ui_columns.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC ../columns.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.ui\ui_columns.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\columns.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\columns.ui -o .ui\ui_columns.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC ../columns.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.ui\ui_columns.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\columns.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\uic.exe ..\columns.ui -o .ui\ui_columns.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC ../columns.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.ui\ui_columns.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\columns.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\uic.exe ..\columns.ui -o .ui\ui_columns.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC ../columns.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.ui\ui_columns.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="..\mainwindow.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\mainwindow.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\mainwindow.ui -o .ui\ui_mainwindow.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC ../mainwindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.ui\ui_mainwindow.h;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\mainwindow.ui;C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\uic.exe ..\mainwindow.ui -o .ui\ui_mainwindow.h</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC ../mainwindow.ui</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.ui\ui_mainwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\mainwindow.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\uic.exe ..\mainwindow.ui -o .ui\ui_mainwindow.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC ../mainwindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.ui\ui_mainwindow.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\mainwindow.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\uic.exe ..\mainwindow.ui -o .ui\ui_mainwindow.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC ../mainwindow.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.ui\ui_mainwindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="..\properties.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\properties.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\uic.exe ..\properties.ui -o .ui\ui_properties.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC ../properties.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.ui\ui_properties.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\properties.ui;c:\qt\5.11.2\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\uic.exe ..\properties.ui -o .ui\ui_properties.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC ../properties.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.ui\ui_properties.h;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\devine.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">..\devine.qrc;C:\qt\5.15.2\msvc2015_64_installed\bin\rcc.exe;..\images\error.png;..\images\filter.png;..\images\disabled.png;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\rcc.exe -name devine ..\devine.qrc -o .qrc\qrc_devine.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">RCC ../devine.qrc</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">..\devine.qrc;C:\qt\5.15.2\msvc2015_64_installed\bin\rcc.exe;..\images\error.png;..\images\filter.png;..\images\disabled.png;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">C:\qt\5.15.2\msvc2015_64_installed\bin\rcc.exe -name devine ..\devine.qrc -o .qrc\qrc_devine.cpp</Command>
-      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">RCC ../devine.qrc</Message>
-      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\devine.qrc;c:\qt\5.11.2\bin\rcc.exe;..\images\error.png;..\images\filter.png;..\images\disabled.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">c:\qt\5.11.2\bin\rcc.exe -name devine ..\devine.qrc -o .qrc\qrc_devine.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">RCC ../devine.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\devine.qrc;c:\qt\5.11.2\bin\rcc.exe;..\images\error.png;..\images\filter.png;..\images\disabled.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">c:\qt\5.11.2\bin\rcc.exe -name devine ..\devine.qrc -o .qrc\qrc_devine.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">RCC ../devine.qrc</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
     </CustomBuild>
     <None Include="..\images\disabled.png" />
     <None Include="..\images\error.png" />

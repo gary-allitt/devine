@@ -8,6 +8,7 @@
 using namespace std;
 
 #include <cfgmgr32.h>
+#include <cfg.h>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "deviceinfoset.h"
@@ -17,6 +18,7 @@ using namespace std;
 
 #include <initguid.h>
 #include <devpkey.h>
+#include "properties.h"
 
 static const int ROLE_INSTANCE_ID = Qt::UserRole + 0;
 static const int ROLE_CLASS_GUID = Qt::UserRole + 1;
@@ -225,10 +227,10 @@ void MainWindow::OnFilter()
   QString filter = ui->the_filter->text().trimmed().toLower();
 
   the_filter_or_s.clear(); 
-  QStringList and_s = filter.split("|", Qt::SkipEmptyParts);
+  QStringList and_s = filter.split("|", SKIPEMPTYPARTS);
   for (auto _ : and_s)
   {
-    the_filter_or_s.push_back(_.split(" ", Qt::SkipEmptyParts));
+    the_filter_or_s.push_back(_.split(" ", SKIPEMPTYPARTS));
   }
 
 
@@ -649,9 +651,20 @@ void MainWindow::EnumDevices()
     }
     d.first_hardware_id = dis.GetDeviceProperty(&DEVPKEY_Device_HardwareIds);
     d.manufacturer = dis.GetDeviceProperty(&DEVPKEY_Device_Manufacturer);
+
     d.provider = dis.GetDeviceProperty(&DEVPKEY_Device_DriverProvider);
     d._class= dis.GetDeviceProperty(&DEVPKEY_Device_Class);
     d.pdo_name = dis.GetDeviceProperty(&DEVPKEY_Device_PDOName);
+    d.problem_code = dis.GetDevicePropertyDW(&DEVPKEY_Device_ProblemCode);
+    if (d.class_guid != GUID_NULL)
+    {
+      d.device_type = g.GetClassProperty(d.class_guid, DEVPKEY_DeviceClass_Name);
+    }
+    else
+    {
+      d.device_type = tr("Other devices");
+    }
+
     parents.insert(d.parent);
 
     if (d.instance_id.length())
@@ -673,7 +686,7 @@ void MainWindow::OnSetupMenu()
     ui->the_disable->setEnabled(false);
     ui->the_enable->setEnabled(false);
     ui->the_uninstall->setEnabled(false);
-    ui->the_properties->setEnabled(false);
+  //  ui->the_properties->setEnabled(false);
     return;
   }
 
@@ -809,8 +822,17 @@ void MainWindow::OnProperties()
   if (*it)
   {
     QString instance_id = (*it)->data(0, ROLE_INSTANCE_ID).toString();
-    QString cmd = QString("/DeviceId ") + instance_id;
-    g.DeviceProperties_RunDLL((HWND)winId(), NULL, cmd.toStdString().c_str(), NULL);
+    if (!the_import_mode)
+    {
+      QString cmd = QString("/DeviceId ") + instance_id;
+      g.DeviceProperties_RunDLL((HWND)winId(), NULL, cmd.toStdString().c_str(), NULL);
+    }
+    else
+    {
+      device d = device::GetDevice(instance_id);
+      Properties dlg(this, d);
+      dlg.exec();
+    }
   }
 }
 

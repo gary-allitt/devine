@@ -52,6 +52,8 @@ void device::ExportAsXML(QDomElement& root)
   ExportNode(device, "has_children", has_children);
   ExportNode(device, "enabled", enabled);
   ExportNode(device, "problem", problem);
+  ExportNode(device, "problem_code", problem_code);
+  ExportNode(device, "device_type", device_type);
 }
 
 /*static*/
@@ -79,6 +81,7 @@ bool device::ImportAsXML(QFile& a_file)
     d.instance_id = name_value["instance_id"];
     d.instance_id_display = name_value["instance_id_display"];
     d.manufacturer = name_value["manufacturer"];
+    d.device_type = name_value["device_type"];
     d.provider = name_value["provider"];
     d._class = name_value["_class"];
     d.icon = name_value["icon"];
@@ -87,6 +90,7 @@ bool device::ImportAsXML(QFile& a_file)
     d.has_children = name_value["has_children"] == "true";
     d.enabled = name_value["enabled"] == "true";
     d.problem = name_value["problem"] == "true";
+    d.problem_code = name_value["problem_code"].toULong();
     Glue g;
     g.GUIDFromString(d.class_guid_readable.toLatin1().constData(),&d.class_guid);
     the_devices.push_back(d);

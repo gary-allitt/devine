@@ -13,18 +13,21 @@ SOURCES += \
     about.cpp \
     columns.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    properties.cpp
 
 
 HEADERS += \
     about.h \
     columns.h \
-    mainwindow.h
+    mainwindow.h \
+    properties.h
 
 FORMS += \
     about.ui \
     columns.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    properties.ui
 
 SOURCES += nativeevents.cpp
 HEADERS += nativeevents.h
