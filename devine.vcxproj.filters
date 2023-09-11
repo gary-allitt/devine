@@ -71,6 +71,9 @@
     <ClCompile Include="nativeevents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="properties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="about.h">
@@ -94,6 +97,9 @@
     <CustomBuild Include="nativeevents.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="properties.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".moc\moc_about.cpp">
@@ -111,6 +117,9 @@
     <CustomBuild Include=".moc\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    <ClCompile Include=".moc\moc_properties.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <ClCompile Include=".qrc\qrc_devine.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -123,6 +132,9 @@
     <ClInclude Include=".ui\ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include=".ui\ui_properties.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="about.ui">
@@ -132,6 +144,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="mainwindow.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="properties.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>

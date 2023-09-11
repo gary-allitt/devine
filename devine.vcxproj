@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="nativeevents.cpp" />
+    <ClCompile Include="properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="about.h">
@@ -193,6 +194,16 @@
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC nativeevents.h</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_nativeevents.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <CustomBuild Include="properties.h">
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">properties.h;.moc\moc_predefs.h;E:\Qt\6.2.1\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/.moc/moc_predefs.h -IE:/Qt/6.2.1/msvc2019_64/mkspecs/win32-msvc -IC:/devl/devine -IE:/Qt/6.2.1/msvc2019_64/include -IE:/Qt/6.2.1/msvc2019_64/include/QtWidgets -IE:/Qt/6.2.1/msvc2019_64/include/QtGui -IE:/Qt/6.2.1/msvc2019_64/include/QtXml -IE:/Qt/6.2.1/msvc2019_64/include/QtCore -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; properties.h -o .moc\moc_properties.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">MOC properties.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.moc\moc_properties.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">properties.h;.moc\moc_predefs.h;E:\Qt\6.2.1\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include C:/devl/devine/.moc/moc_predefs.h -IE:/Qt/6.2.1/msvc2019_64/mkspecs/win32-msvc -IC:/devl/devine -IE:/Qt/6.2.1/msvc2019_64/include -IE:/Qt/6.2.1/msvc2019_64/include/QtWidgets -IE:/Qt/6.2.1/msvc2019_64/include/QtGui -IE:/Qt/6.2.1/msvc2019_64/include/QtXml -IE:/Qt/6.2.1/msvc2019_64/include/QtCore -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\ATLMFC\include&quot; -I&quot;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include&quot; -I&quot;C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt&quot; -I&quot;E:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\cppwinrt&quot; properties.h -o .moc\moc_properties.cpp</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">MOC properties.h</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_properties.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include=".moc\moc_about.cpp" />
@@ -210,10 +221,12 @@
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">Generate moc_predefs.h</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.moc\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClCompile Include=".moc\moc_properties.cpp" />
     <ClCompile Include=".qrc\qrc_devine.cpp" />
     <ClInclude Include=".ui\ui_about.h" />
     <ClInclude Include=".ui\ui_columns.h" />
     <ClInclude Include=".ui\ui_mainwindow.h" />
+    <ClInclude Include=".ui\ui_properties.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="about.ui">
@@ -248,6 +261,17 @@
       <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\uic.exe mainwindow.ui -o .ui\ui_mainwindow.h</Command>
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC mainwindow.ui</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.ui\ui_mainwindow.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="properties.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">properties.ui;E:\Qt\6.2.1\msvc2019_64\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\uic.exe properties.ui -o .ui\ui_properties.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">UIC properties.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.ui\ui_properties.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">properties.ui;E:\Qt\6.2.1\msvc2019_64\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\uic.exe properties.ui -o .ui\ui_properties.h</Command>
+      <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">UIC properties.ui</Message>
+      <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.ui\ui_properties.h;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

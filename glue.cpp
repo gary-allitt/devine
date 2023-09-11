@@ -1,4 +1,9 @@
 #include <windows.h>
+#include <devpkey.h>
+#ifdef PRODUCT_UPDDAPI /*fix upddapi so this isn't needed*/
+#undef _WIN32_WINNT 
+#define _WIN32_WINNT 0x0A00
+#endif
 #include <cfgmgr32.h>
 #include <QtGlobal>
 #include <QPainter>
@@ -186,7 +191,7 @@ QString Glue::GetClassIconPath(GUID guid)
   ULONG size = sizeof(icon_path_w);
   QPixmap px;
   if (guid != GUID_NULL
-    && CM_Get_Class_Property(&guid, &DEVPKEY_DeviceClass_IconPath, &type, icon_path_w, &size, CM_CLASS_PROPERTY_INSTALLER) == CR_SUCCESS)
+    && CM_Get_Class_PropertyW(&guid, &DEVPKEY_DeviceClass_IconPath, &type, icon_path_w, &size, CM_CLASS_PROPERTY_INSTALLER) == CR_SUCCESS)
   {
     return(QString::fromWCharArray((WCHAR*)icon_path_w));
   }
@@ -201,7 +206,7 @@ QString Glue::GetClassProperty(GUID guid, DEVPROPKEY Property)
   ULONG type;
   ULONG size = sizeof(value);
 
-  if (CM_Get_Class_Property(&guid, &Property, &type, (PBYTE)value, &size, 0) == CR_SUCCESS)
+  if (CM_Get_Class_PropertyW(&guid, &Property, &type, (PBYTE)value, &size, 0) == CR_SUCCESS)
   {
     if (type == DEVPROP_TYPE_STRING)
     {

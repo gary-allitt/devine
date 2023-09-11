@@ -1,10 +1,12 @@
 #include <QString>
+#include <initguid.h>
 
 class QDomElement;
 class QFile;
 
 struct device
 {
+  device();
   QString description;
   GUID class_guid;
   QString class_guid_readable;
@@ -27,20 +29,13 @@ struct device
   static void ExportAsXML(QFile& a_file);
   static bool ImportAsXML(QFile& a_file);
   void ExportAsXML(QDomElement& root);
+  static void EnumDevices();
 
+  static device GetDevice(const QString& a_instance_id);
+  static const std::vector<device>& GetDevices() { return(the_devices); };
+  static const std::map<QString, GUID>& GetUsedClasses() { return(the_used_device_class_guids); }
+private:
   static std::vector<device> the_devices;
-
-  static device GetDevice(const QString& a_instance_id)
-  {
-    for (auto _ : the_devices)
-    {
-      if (_.instance_id == a_instance_id)
-      {
-        return(_);
-      }
-    }
-    static device nulldevice;
-    return(nulldevice);
-  }
+  static std::map<QString, GUID> the_used_device_class_guids;
 
 };

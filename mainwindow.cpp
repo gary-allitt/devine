@@ -89,13 +89,20 @@ MainWindow::MainWindow(QWidget* parent)
   connect(ui->the_tree, &QTreeWidget::itemSelectionChanged, this, &MainWindow::OnSetupMenu);
   connect(&the_redraw_timer, &QTimer::timeout, this, &MainWindow::OnDeviceChange);
 
-  device::the_devices.reserve(4096);
-
   OnSetupMenu();
 
   FetchColumnSettings();
   OnDeviceChange();
 
+  if (QApplication::arguments().size() > 1
+    && QApplication::arguments()[1].right(4).toLower() == ".dvx")
+  {
+    if (!DoImportActual(QApplication::arguments()[1]))
+    {
+      qApp->exit();
+      return;
+    }
+  }
 }
 
 MainWindow::~MainWindow()
@@ -180,7 +187,7 @@ void MainWindow::OnDeviceChange()
 {
   if (!the_import_mode)
   {
-    EnumDevices();
+    device::EnumDevices();
   }
   LoadView();
   OnFilter();
@@ -344,7 +351,7 @@ void MainWindow::PopulateLeaf(QTreeWidgetItem* parent)
     devices_were[item->data(0, ROLE_INSTANCE_ID).toString()] = item;
   }
 
-  for (auto it = device::the_devices.begin(); it != device::the_devices.end(); it++)
+  for (auto it = device::GetDevices().begin(); it != device::GetDevices().end(); it++)
   {
     if (!it->connected
       && !ui->actionShow_hidden_devices->isChecked())
@@ -494,7 +501,7 @@ void MainWindow::LoadByTypeView()
     classes_were[item->text(0)] = item;
   }
   // get the list of device classes recorded in the previous enumeration 
-  for(auto it = the_used_device_class_guids.begin(); it != the_used_device_class_guids.end(); it++)
+  for(auto it = device::GetUsedClasses().begin(); it != device::GetUsedClasses().end(); it++)
   {
     QString _class;
     if (it->second != GUID_NULL)
@@ -561,7 +568,7 @@ void MainWindow::LoadByConnectionView()
   //hierarchical view of devices 
   ui->the_tree->setSortingEnabled(false);
   QString root;
-  for (auto it = device::the_devices.begin(); it != device::the_devices.end(); it++)
+  for (auto it = device::GetDevices().begin(); it != device::GetDevices().end(); it++)
   {
     if (it->parent == "")
     {
@@ -579,116 +586,9 @@ void MainWindow::LoadByConnectionView()
 }
 
 
-void MainWindow::EnumDevices()
-{ 
-  // on each update we build a complete list of device instances, this is relatively quick
-  // loading into the treewidget is done on demand as this is a little slower 
-  device::the_devices.clear();
- 
-  set<QString> parents;
-
-  DeviceInfoSet dis(NULL, DIGCF_ALLCLASSES);
-  for (int i=0; ; i++)
-  {
-    if (!dis.Enumerate(i))
-    {
-      break;
-    }
-    
-    device d;
-    d.parent = dis.GetDeviceProperty(&DEVPKEY_Device_Parent).toLower();
-    d.connected = dis.GetDeviceRegistryProperty(SPDRP_PHYSICAL_DEVICE_OBJECT_NAME).length();
-    d.instance_id_display = dis.GetDeviceProperty(&DEVPKEY_Device_InstanceId);
-    d.instance_id = d.instance_id_display.toLower();
-    if (d.instance_id_display.left(1) == "{")
-    {
-      d.instance_id_display = d.instance_id_display.mid(d.instance_id_display.indexOf("}\\") + 2);
-    }
-/*    if (!d.connected
-      && !ui->actionShow_hidden_devices->isChecked())
-    {
-      if (ui->actionDevices_by_connection->isChecked()
-         && d.parent == "")
-      { // need to include the root device for connections view
-      }
-      else
-      {
-        continue;
-      }
-    }*/
-    d.class_guid_readable = dis.GetDeviceRegistryProperty(SPDRP_CLASSGUID);
-    
-    if (d.class_guid_readable.length())
-    {
-      g.GUIDFromString(d.class_guid_readable.toStdString().c_str(), &d.class_guid);
-    }
-    else
-    {
-      d.class_guid = GUID_NULL;
-      d.class_guid_readable = g.GuidToString(d.class_guid);
-    }
-    the_used_device_class_guids[d.class_guid_readable] = d.class_guid;
-    QString description = dis.GetDeviceRegistryProperty(SPDRP_FRIENDLYNAME);
-    if (!description.length())
-    {
-       description = dis.GetDeviceRegistryProperty(SPDRP_DEVICEDESC);
-    }
-    d.description = description;
-    
-    d.enabled = dis.GetDevicePropertyDW(&DEVPKEY_Device_ProblemCode) != CM_PROB_DISABLED;
-    if (!d.enabled || !d.connected)
-    {
-      d.problem = false;
-    }
-    else
-    {
-      d.problem= dis.GetDevicePropertyDW(&DEVPKEY_Device_ProblemCode) != 0;
-    }
-    d.icon = dis.GetDeviceProperty(&DEVPKEY_DrvPkg_Icon);
-    if (!d.icon.length())
-    {
-      d.icon = g.GetClassIconPath(d.class_guid);
-    }
-    d.first_hardware_id = dis.GetDeviceProperty(&DEVPKEY_Device_HardwareIds);
-    d.manufacturer = dis.GetDeviceProperty(&DEVPKEY_Device_Manufacturer);
-
-    d.provider = dis.GetDeviceProperty(&DEVPKEY_Device_DriverProvider);
-    d._class= dis.GetDeviceProperty(&DEVPKEY_Device_Class);
-    d.pdo_name = dis.GetDeviceProperty(&DEVPKEY_Device_PDOName);
-    d.problem_code = dis.GetDevicePropertyDW(&DEVPKEY_Device_ProblemCode);
-    if (d.class_guid != GUID_NULL)
-    {
-      d.device_type = g.GetClassProperty(d.class_guid, DEVPKEY_DeviceClass_Name);
-    }
-    else
-    {
-      d.device_type = tr("Other devices");
-    }
-
-    parents.insert(d.parent);
-
-    if (d.instance_id.length())
-    {  // if a device goes away after creating DeviceInfoSet we get an empty entry back, ignore it
-      device::the_devices.push_back(d); 
-    }
-  }
-  for (auto& _ : device::the_devices)
-  {
-    _.has_children = parents.find(_.instance_id) != parents.end();
-  }
-
-}
 
 void MainWindow::OnSetupMenu()
 {
-  if (the_import_mode)
-  {
-    ui->the_disable->setEnabled(false);
-    ui->the_enable->setEnabled(false);
-    ui->the_uninstall->setEnabled(false);
-  //  ui->the_properties->setEnabled(false);
-    return;
-  }
 
   bool allSelnsDisabledDevice = true;
   bool allSelnsEnabledDevice = true;
@@ -720,10 +620,20 @@ void MainWindow::OnSetupMenu()
     allSelnsEnabledDevice = false;
     allSelnsDevice = false;
   }
+
+  ui->the_properties->setEnabled(allSelnsDevice && cnt == 1);
+
+  if (the_import_mode)
+  {
+    ui->the_disable->setEnabled(false);
+    ui->the_enable->setEnabled(false);
+    ui->the_uninstall->setEnabled(false);
+    return;
+  }
+
   ui->the_disable->setEnabled(allSelnsEnabledDevice);
   ui->the_enable->setEnabled(allSelnsDisabledDevice);
   ui->the_uninstall->setEnabled(allSelnsDevice);
-  ui->the_properties->setEnabled(allSelnsDevice && cnt == 1);
 }
 
 void MainWindow::OnRightClick(const QPoint& pos)
@@ -857,22 +767,27 @@ void MainWindow::OnImport()
   QFileInfo fi(fn);
   the_settings.setValue("options/selected_import_folder", fi.absolutePath());
 
-  QFile f(fn);
+  DoImportActual(fi.fileName());
+}
+
+bool MainWindow::DoImportActual(const QString& a_file_name)
+{
+  QFile f(a_file_name);
   if (!f.open(QFile::ReadOnly))
   {
     QMessageBox::warning(this, "Error", "Unable to open file");
-    return;
+    return(false);
   }
-
-  if(!device::ImportAsXML(f))
+  if (!device::ImportAsXML(f))
   {
     QMessageBox::warning(this, "Error", "Unable to read file");
-    return;
+    return(false);
   }
   the_import_mode = true;
-  QString title = tr("Devine showing imported file: %1").arg(fi.fileName());
+  QString title = tr("Devine showing imported file: %1").arg(a_file_name);
   setWindowTitle(title);
   OnDeviceChange();
+  return(true);
 }
 
 void MainWindow::OnExport()

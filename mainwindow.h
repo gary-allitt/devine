@@ -45,15 +45,14 @@ private:
     Glue g;
 
 
-    void EnumDevices();
     void LoadView();
     void LoadByTypeView();
     void LoadByConnectionView();
     void PopulateLeaf(QTreeWidgetItem* parent);
     void FetchColumnSettings();
     bool ItemMatchesFilter(QTreeWidgetItem* item);
+    bool DoImportActual(const QString& a_file_name);
 
-    map<QString, GUID> the_used_device_class_guids;
     vector<QStringList> the_filter_or_s;
 
 
