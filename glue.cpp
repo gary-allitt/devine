@@ -7,6 +7,7 @@
 #include <cfgmgr32.h>
 #include <QtGlobal>
 #include <QPainter>
+#include <QIcon>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QtWin>
 #endif
@@ -160,17 +161,36 @@ QPixmap Glue::IconFromPath(const QString& a_path, bool connected, bool disabled,
   {
     QString path = ExpandEnvironmentStrings(path_toks[0]);
     HANDLE himage = LoadImageA(NULL, path.toStdString().c_str(), IMAGE_ICON, 16, 16, LR_LOADFROMFILE);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-    QImage image = QImage::fromHICON((HICON)himage);
-#else
-    QImage image = QtWin::fromHICON((HICON)himage).toImage();
-#endif
-    if (!connected)
+    if (himage)
     {
-      GrayImage(image);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+      QImage image = QImage::fromHICON((HICON)himage);
+#else
+      QImage image = QtWin::fromHICON((HICON)himage).toImage();
+#endif
+      if (!connected)
+      {
+        GrayImage(image);
+      }
+      px = QPixmap::fromImage(image);
     }
-
-    px = QPixmap::fromImage(image);
+    else
+    {
+      if (a_path.right(8) == "updd.ico")
+      {
+        px = QPixmap(":/images/updd.png");
+      }
+      else
+      {
+        px = QPixmap(":/images/missing.png");
+      }
+      if (!connected)
+      {
+        QImage image = px.toImage();
+        GrayImage(image);
+        px = QPixmap::fromImage(image);
+      }
+    }
   }
   if (disabled)
   {

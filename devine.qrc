@@ -3,5 +3,7 @@
         <file>images/filter.png</file>
         <file>images/disabled.png</file>
         <file>images/error.png</file>
+        <file>images/missing.png</file>
+        <file>images/updd.png</file>
     </qresource>
 </RCC>

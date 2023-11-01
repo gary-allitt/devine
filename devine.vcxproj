@@ -277,11 +277,11 @@
   <ItemGroup>
     <CustomBuild Include="devine.qrc">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">devine.qrc;E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe;images\disabled.png;images\filter.png;images\error.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">devine.qrc;E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe;images\disabled.png;images\filter.png;images\error.png;images\updd.png;images\missing.png;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe -name devine devine.qrc -o .qrc\qrc_devine.cpp</Command>
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">RCC devine.qrc</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Release|x64&apos;">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
-      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">devine.qrc;E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe;images\disabled.png;images\filter.png;images\error.png;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">devine.qrc;E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe;images\disabled.png;images\filter.png;images\error.png;images\updd.png;images\missing.png;%(AdditionalInputs)</AdditionalInputs>
       <Command Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">E:\Qt\6.2.1\msvc2019_64\bin\rcc.exe -name devine devine.qrc -o .qrc\qrc_devine.cpp</Command>
       <Message Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">RCC devine.qrc</Message>
       <Outputs Condition="&apos;$(Configuration)|$(Platform)&apos;==&apos;Debug|x64&apos;">.qrc\qrc_devine.cpp;%(Outputs)</Outputs>
@@ -289,6 +289,8 @@
     <None Include="images\disabled.png" />
     <None Include="images\error.png" />
     <None Include="images\filter.png" />
+    <None Include="images\missing.png" />
+    <None Include="images\updd.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\devl\devine\devine_resource.rc" />

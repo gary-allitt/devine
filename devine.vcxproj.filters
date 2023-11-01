@@ -163,6 +163,12 @@
     <None Include="images\filter.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="images\missing.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="images\updd.png">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="C:\devl\devine\devine_resource.rc" />
