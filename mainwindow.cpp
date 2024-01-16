@@ -92,7 +92,6 @@ MainWindow::MainWindow(QWidget* parent)
   OnSetupMenu();
 
   FetchColumnSettings();
-  OnDeviceChange();
 
   if (QApplication::arguments().size() > 1
     && QApplication::arguments()[1].right(4).toLower() == ".dvx")
@@ -102,6 +101,10 @@ MainWindow::MainWindow(QWidget* parent)
       qApp->exit();
       return;
     }
+  }
+  else
+  {
+    OnDeviceChange();
   }
 }
 

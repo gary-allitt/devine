@@ -83,6 +83,7 @@ bool device::ImportAsXML(QFile& a_file)
     return(false);
   }
   the_devices.clear();
+  the_used_device_class_guids.clear();
   bool found_root = false; 
   QDomNode devices = doc.documentElement()/*.namedItem("devices")*/;
   for (QDomNode dn = devices.firstChild(); !dn.isNull(); dn = dn.nextSibling())
@@ -94,6 +95,10 @@ bool device::ImportAsXML(QFile& a_file)
     }
     device d;
     d.description = name_value["description"];
+    if (d.description.indexOf("USB Serial Port") >= 0)
+    {
+      int i=0;
+    }
     d.class_guid_readable = name_value["class_guid_readable"];
     d.first_hardware_id = name_value["first_hardware_id"];
     d.instance_id = name_value["instance_id"];
@@ -112,6 +117,7 @@ bool device::ImportAsXML(QFile& a_file)
     Glue g;
     g.GUIDFromString(d.class_guid_readable.toLatin1().constData(),&d.class_guid);
     the_devices.push_back(d);
+    the_used_device_class_guids[d.class_guid_readable] = d.class_guid;
     if (d.parent == "")
     {
       found_root = true;
